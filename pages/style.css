@@ -81,3 +81,20 @@ img{
 .password{
   overflow-x: scroll;
 }
+
+.flex_column{
+  width: 70%;
+  min-height: 400px;
+}
+
+.product_in_cart{
+  margin: 10px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 200px;
+  min-height: 250px;
+  width: 80%;
+}

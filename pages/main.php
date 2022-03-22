@@ -1,3 +1,10 @@
+<!--
+ogarnąć permisje userów na podstawie bazy danych
+zamówienia - dla admina i managera
+
+
+ -->
+
 <?php
 session_start();
  ?>
@@ -91,26 +98,40 @@ session_start();
           $res=$con->query($sql);
           $con->close();
           echo "<div class=flex>";
+
+          if (!empty($_SESSION['cart_content'])) {
+            $cart_session=$_SESSION['cart_content'];
+          }
+
           while ($x=$res->fetch_assoc()) {
             if (empty($x['image_name'])) {
               $x['image_name']='default.png';
             }
-            echo <<< tomek
-              <div class="product">
-                <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br>
-                <p>Nazwa produktu: $x[name]</p>
-                <p>Ilośc na magazynie: $x[amount]</p>
-                <p>Cena: $x[price]</p>
 
-              </div>
-            tomek;
+            if (isset($cart_session[$x['product_id']])) {
+              $x['amount'] = $x['amount'] - $cart_session[$x['product_id']];
+            }
+
+            echo <<< tomek
+            <div class="product">
+                <form action="../actions/add_to_cart.php" method="get">
+                  <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br>
+                  <p>Nazwa produktu: $x[name]</p>
+                  <p>Ilośc na magazynie: $x[amount] szt</p>
+                  <p>Cena: $x[price] zł</p>
+                  <input type="submit" value="Dodaj do koszyka">
+                  <input type="hidden" name="product_id" value="$x[product_id]">
+                  <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]>
+                </form>
+            </div>
+          tomek;
           }
+
           echo "</div>";
         }
       ?>
 
     </section>
-
   <footer>Strona wykoana przez Antonieg Pietrzaka</footer>
   </body>
 </html>
