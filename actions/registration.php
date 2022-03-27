@@ -12,7 +12,7 @@ if ( !empty($_POST['name']) &&  !empty($_POST['surname']) && !empty($_POST['birt
     if (password_verify($hash, $_POST['password'])) {
       header("location: ../pages/main.php?information=Błąd szyfrowania hasła ");
     }else {
-      $sql = "INSERT INTO `users` (`id`, `name`, `surname`, `birthday`, `password`, `email_address`, `home_address`) VALUES (NULL, '$_POST[name]', '$_POST[surname]', '$_POST[birthday]', '$hash', '$_POST[email_address]', '$_POST[home_address]');";
+      $sql = "INSERT INTO `users` (`user_id`, `name`, `surname`, `birthday`, `password`, `email_address`, `home_address`) VALUES (NULL, '$_POST[name]', '$_POST[surname]', '$_POST[birthday]', '$hash', '$_POST[email_address]', '$_POST[home_address]');";
 
       $con->query($sql);
       $con->close();

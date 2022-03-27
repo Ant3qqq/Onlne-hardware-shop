@@ -27,19 +27,11 @@ session_start();
            tomek;
 
            $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
-           $sql = "SELECT user_type FROM `users` where email_address like '$_SESSION[email_address_logged]';";
+           $sql = "SELECT utp.* FROM users u join user_types_permissions utp on utp.user_type = u.user_type where email_address like '$_SESSION[email_address_logged]';";
            $res=$con->query($sql);
-           $con->close();
            $x=$res->fetch_assoc();
-           if ($x['user_type'] == 'admin') {
-             echo <<< tomek
-               <a href="./products_management_page.php">Zarządzanie produktami</a>
-               <a href="./user_management_page.php">Zarządzanie użytkownikami</a>
-             tomek;
-           }elseif ($x['user_type'] == 'manager') {
-             echo <<< tomek
-               <a href="./products_management_page.php">Zarządzanie produktami</a>
-             tomek;
+           if ($x['editing_products']) {
+             echo "<a href='./products_management_page.php'>Zarządzanie produktami</a>";
            }
 
 

@@ -27,19 +27,11 @@ session_start();
            tomek;
 
            $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
-           $sql = "SELECT user_type FROM `users` where email_address like '$_SESSION[email_address_logged]';";
+           $sql = "SELECT utp.* FROM users u join user_types_permissions utp on utp.user_type = u.user_type where email_address like '$_SESSION[email_address_logged]';";
            $res=$con->query($sql);
-           $con->close();
            $x=$res->fetch_assoc();
-           if ($x['user_type'] == 'admin') {
-             echo <<< tomek
-               <a href="./products_management_page.php">Zarządzanie produktami</a>
-               <a href="./user_management_page.php">Zarządzanie użytkownikami</a>
-             tomek;
-           }elseif ($x['user_type'] == 'manager') {
-             echo <<< tomek
-               <a href="./products_management_page.php">Zarządzanie produktami</a>
-             tomek;
+           if ($x['editing_products']) {
+             echo "<a href='./products_management_page.php'>Zarządzanie produktami</a>";
            }
 
 
@@ -58,7 +50,7 @@ session_start();
      <section>
        <?php
        $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
-       $sql = "SELECT id, name, surname, birthday,password, email_address, home_address, user_type FROM `users`;";
+       $sql = "SELECT user_id, name, surname, birthday,password, email_address, home_address, user_type FROM `users`;";
        $res=$con->query($sql);
 
        if (!empty($_GET['information'])) {
@@ -83,13 +75,13 @@ session_start();
        tomek;
 
        while ($x=$res->fetch_assoc()) {
-         if ($x['id']==$_GET['id']) {
+         if ($x['user_id']==$_GET['user_id']) {
            echo <<< tomek
              <form id="user_editing_form" action="../actions/edit_user.php" method="post"></form>
              <tr>
                <td>
                   Id użytkownika zostanie <br> nadane automatycznie
-                 <input type="hidden" name="id" value="$x[id]" form="user_editing_form">
+                 <input type="hidden" name="user_id" value="$x[user_id]" form="user_editing_form">
                </td>
                <td>
                  $x[name]<br>
@@ -132,7 +124,7 @@ session_start();
          }else{
            echo <<< tomek
            <tr>
-           <td>$x[id]</td>
+           <td>$x[user_id]</td>
            <td>$x[name]</td>
            <td>$x[surname]</td>
            <td>$x[birthday]</td>
@@ -141,8 +133,8 @@ session_start();
            <td>$x[home_address]</td>
            <td>$x[user_type]</td>
 
-           <td><a href=../actions/delete_user.php?id=$x[id]>Usuń</a></td>
-           <td><a href=./user_edition_page.php?id=$x[id]>Edytuj</a></td>
+           <td><a href=../actions/delete_user.php?user_id=$x[user_id]>Usuń</a></td>
+           <td><a href=./user_edition_page.php?user_id=$x[user_id]>Edytuj</a></td>
 
            </tr>
            tomek;
