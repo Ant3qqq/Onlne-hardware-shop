@@ -62,7 +62,7 @@ session_start();
           echo "Pusyt koszyk -&nbsp <a href='./main.php'> przejdź do sklepu </a>&nbsp i dodaj produkty";
         }
         else{
-          
+
           $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
 
           $_SESSION['cart_content'];
@@ -81,19 +81,22 @@ session_start();
 
                     $cart_price=$cart_price+$price_of_items;
                     $amount_in_magazine = $x['amount']-$value;
+                    $max_amount = $x['amount']-$value;
+                    $min_amount = -$value;
                     echo <<< tomek
                       <div class='product_in_cart'>
                         <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br><br>
                         <p>Nazwa produktu: $x[name]</p><br>
-                        <p>Ilośc na magazynie: </p><br>
+                        <p>Ilośc na magazynie: $amount_in_magazine</p><br>
                         <p>Ilośc w koszyku:$value</p><br>
-                        
+
                         <form action="../actions/add_to_cart.php" method="get">
+
                           <input type="hidden" name="product_id" value="$key">
-                          <input type="number" name="amount" value='1' min='$value*-1' step='1' max='$x[amount]-$value'>
-                           <input type="submit" value="Zmień ilość w koszyku">
+                          <input type="number" name="amount" value='1' min='$min_amount' step='1' max='$max_amount'>
+                          <input type="submit" value="Zmień ilość w koszyku">
                         </form>
-                        
+
                         <p>Cena: $x[price]</p><br>
                         <p>Suma: $price_of_items zł</p>
 
@@ -104,10 +107,13 @@ session_start();
           echo <<< tomek
             <div class="product">
             podsumowanie zakupów: cena: $cart_price zł
-            <a href="../actions/confirm_order.php">Przejdź do podsumowania</a>
+            <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
             </div>
             </div>
+
           tomek;
+
+
         }
       ?>
 

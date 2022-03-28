@@ -13,11 +13,5 @@ else {
   var_dump($_SESSION['cart_content']);
 }
 
-// echo "<hr>";
-// var_dump($_SESSION['cart_content']);
-// echo "<hr>";
-// print_r($_SESSION['cart_content']);
-// echo "<a href=../pages/main.php>Sklep</a>";
-
 header("location: ../pages/shopping_cart_page.php");
- ?>
+?>

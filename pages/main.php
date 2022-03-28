@@ -1,14 +1,14 @@
-<!--
-ogarnąć permisje userów na podstawie bazy danych
-zamówienia - dla admina i managera
-
-
- -->
-
 <?php
 session_start();
  ?>
 <!DOCTYPE html>
+<!--
+    pozamykać connecitons
+    ogarnąć robienie zamówienia
+      wciskanie zamówienia do bazy
+      wyświetlanie zamówienia
+
+ -->
 
 <html lang="en" dir="ltr">
   <head>
@@ -108,7 +108,7 @@ session_start();
             if (isset($cart_session[$x['product_id']])) {
               $x['amount'] = $x['amount'] - $cart_session[$x['product_id']];
             }
-            if ($x['amount']>0) {
+            if ($x['amount']>0 and $x['visibility']==1) {
               echo <<< tomek
               <div class="product">
                   <form action="../actions/add_to_cart.php" method="get">

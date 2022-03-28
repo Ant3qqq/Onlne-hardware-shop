@@ -20,7 +20,7 @@ if (empty($_GET['price'])) {
 if (empty($_GET['image_name'])) {
   $_GET['image_name']=$x['image_name'];
 }
-if (empty($_GET['image_name'])) {
+if (!isset($_GET['visibility'])) {
   $_GET['visibility']=$x['visibility'];
 }
 
