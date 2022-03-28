@@ -65,11 +65,11 @@ session_start();
           
           $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
 
-          $cart_session=$_SESSION['cart_content'];
+          $_SESSION['cart_content'];
 
           echo "<div class='flex_column'>";
           $cart_price = 0;
-          foreach ($cart_session as $key => $value) {
+          foreach ($_SESSION['cart_content'] as $key => $value) {
               $sql = "SELECT name, amount, price, image_name FROM `products` where product_id = $key;";
               $res=$con->query($sql);
 
@@ -80,13 +80,20 @@ session_start();
                     $price_of_items = $x['price']*$value;
 
                     $cart_price=$cart_price+$price_of_items;
-
+                    $amount_in_magazine = $x['amount']-$value;
                     echo <<< tomek
                       <div class='product_in_cart'>
                         <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br><br>
                         <p>Nazwa produktu: $x[name]</p><br>
-                        <p>Ilośc na magazynie: $x[amount]</p><br>
+                        <p>Ilośc na magazynie: </p><br>
                         <p>Ilośc w koszyku:$value</p><br>
+                        
+                        <form action="../actions/add_to_cart.php" method="get">
+                          <input type="hidden" name="product_id" value="$key">
+                          <input type="number" name="amount" value='1' min='$value*-1' step='1' max='$x[amount]-$value'>
+                           <input type="submit" value="Zmień ilość w koszyku">
+                        </form>
+                        
                         <p>Cena: $x[price]</p><br>
                         <p>Suma: $price_of_items zł</p>
 
@@ -105,7 +112,6 @@ session_start();
       ?>
 
     </section>
-
   <footer>Strona wykoana przez Antonieg Pietrzaka</footer>
   </body>
 </html>

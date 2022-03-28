@@ -94,10 +94,10 @@ session_start();
              <input type="text" name="image_name" placeholder="podaj nazwę zdjęcia" form="add_product_form">
            </td>
            <td>
-             <select name="visibility" form="edit_product_form">
-               <option value="1">Widoczne</option>
-               <option value="0">Ukryte</option>
-             </select>
+            <select name="visibility" form="add_product_form">
+              <option value="1">Widoczne</option>
+              <option value="0">Ukryte</option>
+            </select>
            </td>
            <td>
              <input type="submit"  value="Zatwierdź" form="add_product_form">

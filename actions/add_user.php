@@ -12,7 +12,7 @@ if ( !empty($_POST['name']) &&  !empty($_POST['surname']) && !empty($_POST['birt
 
     $con->query($sql);
     $con->close();
-    header("location: ../pages/user_adding_page.php?information=Zarejestrowano usera '$_POST[name]'");
+    header("location: ../pages/user_adding_page.php?information=Zarejestrowano usera '$_POST[name]' o mailu '$_POST[email_address]' ");
 
   }
 

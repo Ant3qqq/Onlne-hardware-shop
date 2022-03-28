@@ -13,9 +13,9 @@ if (empty($_GET['name'])) {
     if (empty($_GET['image_name'])) {
       $_GET['image_name']='';
     }
-    if (empty($_GET['visibility'])) {
-      $_GET['visibility']=0;
-    }
+    // if (empty($_GET['visibility'])) {
+    //   $_GET['visibility']=0;
+    // }
 
     $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
     $sql = "INSERT INTO `products` (`product_id`, `name`, `amount`, `price`, `image_name`,`visibility`) VALUES (NULL, '$_GET[name]', '$_GET[amount]', '$_GET[price]', '$_GET[image_name]','$_GET[visibility]' );";

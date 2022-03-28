@@ -108,20 +108,22 @@ session_start();
             if (isset($cart_session[$x['product_id']])) {
               $x['amount'] = $x['amount'] - $cart_session[$x['product_id']];
             }
+            if ($x['amount']>0) {
+              echo <<< tomek
+              <div class="product">
+                  <form action="../actions/add_to_cart.php" method="get">
+                    <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br>
+                    <p>Nazwa produktu: $x[name]</p>
+                    <p>Ilośc na magazynie: $x[amount] szt</p>
+                    <p>Cena: $x[price] zł</p>
+                    <input type="submit" value="Dodaj do koszyka">
+                    <input type="hidden" name="product_id" value="$x[product_id]">
+                    <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]>
+                  </form>
+              </div>
+            tomek;
+            }
 
-            echo <<< tomek
-            <div class="product">
-                <form action="../actions/add_to_cart.php" method="get">
-                  <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br>
-                  <p>Nazwa produktu: $x[name]</p>
-                  <p>Ilośc na magazynie: $x[amount] szt</p>
-                  <p>Cena: $x[price] zł</p>
-                  <input type="submit" value="Dodaj do koszyka">
-                  <input type="hidden" name="product_id" value="$x[product_id]">
-                  <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]>
-                </form>
-            </div>
-          tomek;
           }
 
           echo "</div>";
