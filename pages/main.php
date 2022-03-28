@@ -38,6 +38,8 @@ session_start();
             $x=$res->fetch_assoc();
             if ($x['editing_products']) {
               echo "<a href='./products_management_page.php'>Zarządzanie produktami</a>";
+            }elseif ($x['editing_products'] ) {
+              // code...
             }
 
 
