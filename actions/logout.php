@@ -8,6 +8,7 @@
   unset($_SESSION["surname_logged"]);
   unset($_SESSION["email_address_logged"]);
   unset($_SESSION["cart_content"]);
-  print_r($_SESSION);
+  unset($_SESSION['user_id']);
+
   header("location: ../pages/main.php");
  ?>

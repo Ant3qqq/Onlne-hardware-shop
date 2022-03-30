@@ -4,6 +4,7 @@ session_start();
 
 $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
 
+
 $sql = "SELECT user_id, name, surname, birthday, email_address,password, home_address, user_type FROM `users` where user_id = '$_POST[user_id]';";
 $res=$con->query($sql);
 $x=$res->fetch_assoc();
@@ -34,13 +35,20 @@ if (empty($_POST['home_address'])) {
 if (empty($_POST['user_type'])) {
   $_POST['user_type']=$x['user_type'];
 }
+$sql = "SELECT `name` FROM `users` WHERE email_address like '$_POST[email_address]'";
+$res=$con->query($sql);
+$x = $res->fetch_assoc();
 
-$sql = "Update users set name='$_POST[name]', surname='$_POST[surname]', birthday = '$_POST[birthday]', password= '$hash', email_address = '$_POST[email_address]', home_address= '$_POST[home_address]', user_type='$_POST[user_type]' where user_id = $_POST[user_id];";
+if (!empty($x['name'])) {
+  header('location: ../pages/user_edition_page.php?user_id=$_POST[user_id]&information=email istnieje w bazie danych');
+}else{
+  $sql = "Update users set name='$_POST[name]', surname='$_POST[surname]', birthday = '$_POST[birthday]', password= '$hash', email_address = '$_POST[email_address]', home_address= '$_POST[home_address]', user_type='$_POST[user_type]' where user_id = $_POST[user_id];";
 
-$con->query($sql);
-$con->close();
+  $con->query($sql);
+  $con->close();
 
-header("location: ../pages/user_management_page.php?information=Podsumowanie edycji użytkownika: user_id(stałe):$_POST[user_id], imie: $x[name] -> $_POST[name], nazwisko: $x[surname] -> $_POST[surname], <br>data urodzin: $x[birthday] -> $_POST[birthday], adres email: $x[email_address] -> $_POST[email_address], hasło: zaszyfrowane -> $_POST[password], adres domowy: $x[home_address] -> $_POST[home_address], typ użytkownika: $x[user_type] -> $_POST[user_type]");
+  header("location: ../pages/user_management_page.php?information=Podsumowanie edycji użytkownika: user_id(stałe):$_POST[user_id], imie: $x[name] -> $_POST[name], nazwisko: $x[surname] -> $_POST[surname], <br>data urodzin: $x[birthday] -> $_POST[birthday], adres email: $x[email_address] -> $_POST[email_address], hasło: zaszyfrowane -> $_POST[password], adres domowy: $x[home_address] -> $_POST[home_address], typ użytkownika: $x[user_type] -> $_POST[user_type]");
+}
 
 
  ?>

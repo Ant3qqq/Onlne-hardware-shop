@@ -56,6 +56,7 @@ session_start();
        $sql = "SELECT user_id, name, surname, birthday,password,email_address, home_address, user_type FROM `users`;";
        $res=$con->query($sql);
 
+
        if (!empty($_GET['information'])) {
          echo "<div><p>$_GET[information]</p><br>";
        }else {

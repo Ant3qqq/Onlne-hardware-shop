@@ -3,6 +3,7 @@ session_start();
 
 if ( !empty($_POST['name']) &&  !empty($_POST['surname']) && !empty($_POST['birthday']) && !empty($_POST['password']) && !empty($_POST['email_address']) && !empty($_POST['home_address']) ) {
   $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
+
   $sql = "SELECT `name` FROM `users` WHERE email_address like '$_POST[email_address]'";
   $res=$con->query($sql);
   $x = $res->fetch_assoc();

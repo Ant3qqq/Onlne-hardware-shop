@@ -18,6 +18,7 @@ if ( !empty($_POST['password']) &&  !empty($_POST['email_address']) ) {
     $_SESSION['name_logged'] = $row['name'];
     $_SESSION['surname_logged'] = $row['surname'];
     $_SESSION['email_address_logged'] = $row['email_address'];
+    $_SESSION['user_id'] = $row['user_id'];
 
     header("location: ../pages/main.php?information=zalogowano usera $row[name] $row[surname] o user_id = $row[user_id] i loginie $row[email_address]");
   }else {

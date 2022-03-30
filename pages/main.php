@@ -118,6 +118,7 @@ session_start();
                     <p>Cena: $x[price] zł</p>
                     <input type="submit" value="Dodaj do koszyka">
                     <input type="hidden" name="product_id" value="$x[product_id]">
+                    <input type="hidden" name="src" value="main">
                     <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]>
                   </form>
               </div>

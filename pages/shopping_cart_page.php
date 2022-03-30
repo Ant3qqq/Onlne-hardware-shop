@@ -92,6 +92,8 @@ session_start();
 
                         <form action="../actions/add_to_cart.php" method="get">
 
+
+                          <input type="hidden" name="src" value="shopping_cart_page">
                           <input type="hidden" name="product_id" value="$key">
                           <input type="number" name="amount" value='1' min='$min_amount' step='1' max='$max_amount'>
                           <input type="submit" value="Zmień ilość w koszyku">
@@ -107,12 +109,11 @@ session_start();
           echo <<< tomek
             <div class="product">
             podsumowanie zakupów: cena: $cart_price zł
-            <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
+            <a href="../actions/confirm_order.php?cart_price=$cart_price">Potwierdź zamówienie</a>
             </div>
             </div>
 
           tomek;
-
 
         }
       ?>
