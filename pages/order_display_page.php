@@ -59,7 +59,7 @@ session_start();
      <section>
        <?php
        $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
-       $sql = "SELECT o.order_id, u.name as user_name, surname, u.user_id, date_time, products.name, op.amount, products.price, home_address ,status FROM `orders` o join ordered_products op on op.order_id = o.order_id join users u on u.user_id = o.user_id join products on op.product_id = products.product_id where u.user_id = '$_SESSION[user_id]' order by o.order_id";
+       $sql = "SELECT o.order_id, u.name as user_name, surname, u.user_id, date_time, products.name, op.amount, op.price as deal_day_product_price,products.price as current_price, home_address ,status FROM `orders` o join ordered_products op on op.order_id = o.order_id join users u on u.user_id = o.user_id join products on op.product_id = products.product_id where u.user_id = '$_SESSION[user_id]' order by o.order_id";
        $res=$con->query($sql);
 
        if (!empty($_GET['information'])) {
@@ -77,7 +77,8 @@ session_start();
            <th>Data i czas zamówienia</th>
            <th>Towar</th>
            <th>Ilosć</th>
-           <th>Cena</th>
+           <th>Cena w <br> dniu sprzedaży</th>
+           <th>Obecna cena <br> produktu</th>
            <th>W sumie za produkt</th>
            <th>Cena zamówienia</th>
            <th>Adres dostawy</th>
@@ -86,9 +87,11 @@ session_start();
        tomek;
 
        $old_id = 0;
+       $price_counter = 0;
        while ($x=$res->fetch_assoc()) {
          // ogarnianie statusu - zrobić
-        $product_zusammen_price = $x['price']*$x['amount'];
+        $product_zusammen_price = $x['deal_day_product_price']*$x['amount'];
+        $price_counter += $product_zusammen_price;
 
         if ($old_id != $x['order_id']) {
           $sql = "SELECT count(order_id) as rowspan FROM  ordered_products where order_id = $x[order_id]";
@@ -106,9 +109,10 @@ session_start();
             <td rowspan=$result_table[rowspan]>$x[date_time]</td>
             <td>$x[name]</td>
             <td>$x[amount]</td>
-            <td>$x[price] zł</td>
+            <td>$x[deal_day_product_price] zł</td>
+            <td>$x[current_price] zł</td>
             <td>$product_zusammen_price zł</td>
-            <td rowspan=$result_table[rowspan]>cena w sumie</td>
+            <td rowspan=$result_table[rowspan]>policzyć w bazie</td>
             <td rowspan=$result_table[rowspan]>$x[home_address]</td>
             <td rowspan=$result_table[rowspan]>$x[status]</td>
 
@@ -121,7 +125,8 @@ session_start();
 
             <td>$x[name]</td>
             <td>$x[amount]</td>
-            <td>$x[price] zł</td>
+            <td>$x[deal_day_product_price] zł</td>
+            <td>$x[current_price] zł</td>
             <td>$product_zusammen_price zł</td>
 
           </tr>

@@ -114,7 +114,7 @@ session_start();
           echo <<< tomek
             <div class="product">
             podsumowanie zakupów: cena: $cart_price zł
-            <a href="../actions/confirm_order.php?cart_price=$cart_price">Potwierdź zamówienie</a>
+            <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
             </div>
             </div>
 

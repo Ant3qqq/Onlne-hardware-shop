@@ -26,10 +26,23 @@ $res=$con->query($sql);
 $x=$res->fetch_assoc();
 $order_id=$x['order_id'];
 
-// dane do tabeli ordered products
+
+
 foreach ($_SESSION['cart_content'] as $key => $value) {
+  // wstawia dane do tabeli ordered products
   $sql = "INSERT INTO `ordered_products` (`order_id`, `product_id`, `amount`) VALUES ('$order_id', '$key', '$value');";
   $con->query($sql);
+
+  // pobiera ilośći produktów na stanie
+  $sql = "SELECT amount FROM `products` where product_id = $key";
+  $res=$con->query($sql);
+  $res_array = $res->fetch_assoc();
+  $amount = $res_array['amount']-$value;
+
+  // usuwa dane ilośći ze stanu sklepowego
+  $sql = "UPDATE `products` SET `amount` = $amount WHERE `products`.`product_id` = $key;";
+  $con->query($sql);
+
 }
 
 // usuwa wszytko z sesji koszyka i wyświetla potwierdzenie
