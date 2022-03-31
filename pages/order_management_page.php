@@ -69,20 +69,21 @@ session_start();
        }
 
        echo <<< tomek
+       <h1>Zarządzanie zamówieniami</h1>
        <table>
          <tr>
-           <th>ID zamówienia</th>
-           <th>Imię i nazwisko klienta</th>
-           <th>ID klienta</th>
-           <th>Data i czas zamówienia</th>
+           <th>ID <br> zamówienia</th>
+           <th>Imię i nazwisko <br> klienta</th>
+           <th>ID <br>klienta</th>
+           <th>Data i <br> czas zamówienia</th>
            <th>Towar</th>
            <th>Ilosć</th>
            <th>Cena w <br> dniu sprzedaży</th>
            <th>Obecna cena <br> produktu</th>
-           <th>W sumie za produkt</th>
-           <th>Cena zamówienia</th>
-           <th>Adres dostawy</th>
-           <th>Status zamówienia</th>
+           <th>W sumie <br> za produkt</th>
+           <th>Cena <br> zamówienia</th>
+           <th>Adres <br> dostawy</th>
+           <th>Status <br> zamówienia</th>
          </tr>
        tomek;
 
@@ -115,6 +116,9 @@ session_start();
             <td rowspan=$result_table[rowspan]>policzyć w bazie</td>
             <td rowspan=$result_table[rowspan]>$x[home_address]</td>
             <td rowspan=$result_table[rowspan]>$x[status]</td>
+            <td rowspan=$result_table[rowspan]><a href=''>Następny <br> krok</a></td>
+            <td rowspan=$result_table[rowspan]><a href=''>Ręcznie ustaw <br> status</a></td>
+
 
 
             </tr>

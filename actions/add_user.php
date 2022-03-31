@@ -37,6 +37,6 @@ if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST['pa
     header('location: ../pages/user_adding_page.php?information=podaj wszystkie dane');
   }
 }
-
+$con->cloes();
 
  ?>

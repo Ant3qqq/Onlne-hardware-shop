@@ -69,29 +69,31 @@ session_start();
        }
 
        echo <<< tomek
+       <h1>Moje zamówienia</h1>
        <table>
          <tr>
-           <th>ID zamówienia</th>
-           <th>Imię i nazwisko klienta</th>
-           <th>ID klienta</th>
-           <th>Data i czas zamówienia</th>
-           <th>Towar</th>
-           <th>Ilosć</th>
-           <th>Cena w <br> dniu sprzedaży</th>
-           <th>Obecna cena <br> produktu</th>
-           <th>W sumie za produkt</th>
-           <th>Cena zamówienia</th>
-           <th>Adres dostawy</th>
-           <th>Status zamówienia</th>
+         <th>ID <br> zamówienia</th>
+         <th>Imię i nazwisko <br> klienta</th>
+         <th>ID <br>klienta</th>
+         <th>Data i <br> czas zamówienia</th>
+         <th>Towar</th>
+         <th>Ilosć</th>
+         <th>Cena w <br> dniu sprzedaży</th>
+         <th>Obecna cena <br> produktu</th>
+         <th>W sumie <br> za produkt</th>
+         <th>Cena <br> zamówienia</th>
+         <th>Adres <br> dostawy</th>
+         <th>Status <br> zamówienia</th>
          </tr>
        tomek;
 
        $old_id = 0;
-       $price_counter = 0;
+       $order_price = 0;
+
        while ($x=$res->fetch_assoc()) {
          // ogarnianie statusu - zrobić
+
         $product_zusammen_price = $x['deal_day_product_price']*$x['amount'];
-        $price_counter += $product_zusammen_price;
 
         if ($old_id != $x['order_id']) {
           $sql = "SELECT count(order_id) as rowspan FROM  ordered_products where order_id = $x[order_id]";
@@ -100,6 +102,11 @@ session_start();
 
           $old_id = $x['order_id'];
 
+          // wybranie sumy cen dla danego zamówienia
+          $sql = "select order_id, round(sum(price*amount),2) as order_price from ordered_products where order_id = $x[order_id] ";
+          $order_price_res = $con->query($sql);
+          $order_price_assoc = $order_price_res->fetch_assoc();
+          $order_price = $order_price_assoc['order_price'];
 
             echo <<< tomek
             <tr>
@@ -112,7 +119,7 @@ session_start();
             <td>$x[deal_day_product_price] zł</td>
             <td>$x[current_price] zł</td>
             <td>$product_zusammen_price zł</td>
-            <td rowspan=$result_table[rowspan]>policzyć w bazie</td>
+            <td rowspan=$result_table[rowspan]>$order_price</td>
             <td rowspan=$result_table[rowspan]>$x[home_address]</td>
             <td rowspan=$result_table[rowspan]>$x[status]</td>
 

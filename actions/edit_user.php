@@ -18,9 +18,7 @@ if (empty($_POST['surname'])) {
 if (empty($_POST['birthday'])) {
   $_POST['birthday']=$x['birthday'];
 }
-if (empty($_POST['email_address'])) {
-  $_POST['email_address']=$x['email_address'];
-}
+
 if (empty($_POST['password'])) {
   $hash=$x['password'];
 }else {
@@ -37,11 +35,14 @@ if (empty($_POST['user_type'])) {
 }
 $sql = "SELECT `name` FROM `users` WHERE email_address like '$_POST[email_address]'";
 $res=$con->query($sql);
-$x = $res->fetch_assoc();
+$y = $res->fetch_assoc();
 
-if (!empty($x['name'])) {
+if (!empty($y['name'])) {
   header('location: ../pages/user_edition_page.php?user_id=$_POST[user_id]&information=email istnieje w bazie danych');
 }else{
+  if (empty($_POST['email_address'])) {
+    $_POST['email_address']=$x['email_address'];
+  }
   $sql = "Update users set name='$_POST[name]', surname='$_POST[surname]', birthday = '$_POST[birthday]', password= '$hash', email_address = '$_POST[email_address]', home_address= '$_POST[home_address]', user_type='$_POST[user_type]' where user_id = $_POST[user_id];";
 
   $con->query($sql);

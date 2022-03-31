@@ -2,13 +2,7 @@
 session_start();
  ?>
 <!DOCTYPE html>
-<!--
-    pozamykać connecitons
-    ogarnąć robienie zamówienia
-      wciskanie zamówienia do bazy
-      wyświetlanie zamówienia
 
- -->
 
 <html lang="en" dir="ltr">
   <head>

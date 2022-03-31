@@ -22,4 +22,5 @@ if ($_GET['src']=='shopping_cart_page') {
 }else {
   header("location: ../pages/main.php");
 }
+$con->cloes();
 ?>

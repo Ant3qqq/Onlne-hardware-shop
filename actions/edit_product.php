@@ -26,7 +26,7 @@ if (!isset($_GET['visibility'])) {
 
 $sql = "UPDATE `products` SET `name` = '$_GET[name]', `amount` = '$_GET[amount]', `price` = '$_GET[price]', `image_name` = '$_GET[image_name]',  `visibility` = '$_GET[visibility]' WHERE `products`.`product_id` = '$_GET[product_id]';";
 $con->query($sql);
-
+$con->cloes();
 
 header("location: ../pages/products_management_page.php?information=Podsumowanie edycji produktu: id(stałe):$_GET[product_id], nazwa: $x[name] -> $_GET[name], ilość: $x[amount] -> $_GET[amount], <br>cena: $x[price] -> $_GET[price], zdięcie: $x[image_name] -> $_GET[image_name], widoczność: $x[visibility] -> $_GET[visibility]");
 

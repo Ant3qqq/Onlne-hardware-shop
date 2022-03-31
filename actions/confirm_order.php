@@ -29,8 +29,14 @@ $order_id=$x['order_id'];
 
 
 foreach ($_SESSION['cart_content'] as $key => $value) {
+  // pobranie aktualnej ceny produktu
+  $sql = "SELECT price FROM products where product_id = $key ";
+  $res=$con->query($sql);
+  $y=$res->fetch_assoc();
+  $price_of_product=$y['price'];
+
   // wstawia dane do tabeli ordered products
-  $sql = "INSERT INTO `ordered_products` (`order_id`, `product_id`, `amount`) VALUES ('$order_id', '$key', '$value');";
+  $sql = "INSERT INTO `ordered_products` (`order_id`, `product_id`, `amount`, `price`) VALUES ('$order_id', '$key', '$value', '$price_of_product');";
   $con->query($sql);
 
   // pobiera ilośći produktów na stanie
@@ -50,5 +56,5 @@ unset($_SESSION["cart_content"]);
 header("location: ../pages/order_confirmation_page.php?information=Zamówienie nr: $x[order_id] zostało przekazane do realizacji, dziękujemy za skorzystanie z naszych usług");
 
 
-
+$con->cloes();
  ?>
