@@ -39,6 +39,9 @@ session_start();
           if ($x['managing_orders']) {
             echo "<a href='./order_management_page.php'>Zarządzanie zamówieniami</a>";
           }
+          if ($x['displaying_orders']) {
+            echo "<a href='./order_display_page.php'>Moje zamówienia</a>";
+          }
 
 
 

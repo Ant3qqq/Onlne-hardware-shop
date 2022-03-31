@@ -11,9 +11,11 @@ session_start();
      <link rel="stylesheet" href="./style.css">
    </head>
    <body>
+
      <header>
        <h1>Sklep metalowy Simba & somsiad</h1>
      </header>
+
      <nav>
        <?php
          if (!empty($_SESSION['email_address_logged'])) {
@@ -28,6 +30,7 @@ session_start();
            $sql = "SELECT utp.* FROM users u join user_types_permissions utp on utp.user_type = u.user_type where email_address like '$_SESSION[email_address_logged]';";
            $res=$con->query($sql);
            $x=$res->fetch_assoc();
+
            if ($x['editing_users']) {
             echo "<a href='./user_management_page.php'>Zarządzanie użytkownikami</a>";
           }
@@ -40,7 +43,6 @@ session_start();
           if ($x['displaying_orders']) {
             echo "<a href='./order_display_page.php'>Moje zamówienia</a>";
           }
-
 
          }else {
            echo <<< tomek
@@ -57,7 +59,7 @@ session_start();
      <section>
        <?php
        $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
-       $sql = "SELECT product_id, name, amount, price, image_name,visibility FROM `products`;";
+       $sql = "SELECT o.order_id, u.name as user_name, surname, u.user_id, date_time, products.name, op.amount, products.price, home_address ,status FROM `orders` o join ordered_products op on op.order_id = o.order_id join users u on u.user_id = o.user_id join products on op.product_id = products.product_id where u.user_id = '$_SESSION[user_id]' order by o.order_id";
        $res=$con->query($sql);
 
        if (!empty($_GET['information'])) {
@@ -66,81 +68,72 @@ session_start();
          echo "<div>";
        }
 
-
-
        echo <<< tomek
        <table>
          <tr>
-           <th>ID produktu</th>
-           <th>Nazwa</th>
-           <th>Ilość</th>
+           <th>ID zamówienia</th>
+           <th>Imię i nazwisko klienta</th>
+           <th>ID klienta</th>
+           <th>Data i czas zamówienia</th>
+           <th>Towar</th>
+           <th>Ilosć</th>
            <th>Cena</th>
-           <th>Zdjęcie</th>
-           <th>Widoczność <br>w sklepie</th>
-           <th colspan=2 ><a href=./product_addinguct_page.php>Dodaj produkt</a></th>
-         </tr>
-
-         <form id="add_product_form" action="../actions/add_product.php" method="get"></form>
-         <tr>
-           <td>
-              Id produktu zostanie <br> nadane automatycznie
-             <input type="hidden" name="product_id" value="" form="add_product_form">
-           </td>
-           <td>
-             <input type="text" name="name" placeholder="podaj nazwę" form="add_product_form">
-           </td>
-           <td>
-             <input type="number" name="amount" placeholder="podaj ilość produktu na magazynie" form="add_product_form">
-           </td>
-           <td>
-             <input type="number" step="0.01" name="price" placeholder="podaj cenę produktu" form="add_product_form">
-           </td>
-           <td>
-             <input type="text" name="image_name" placeholder="podaj nazwę zdjęcia" form="add_product_form">
-           </td>
-           <td>
-            <select name="visibility" form="add_product_form">
-              <option value="1">Widoczne</option>
-              <option value="0">Ukryte</option>
-            </select>
-           </td>
-           <td>
-             <input type="submit"  value="Zatwierdź" form="add_product_form">
-           </td>
-           <td><a href='./products_management_page.php?information=anulowano dodawanie produktu'>Anuluj dodawanie</a></td>
-
-
-
+           <th>W sumie za produkt</th>
+           <th>Cena zamówienia</th>
+           <th>Adres dostawy</th>
+           <th>Status zamówienia</th>
          </tr>
        tomek;
 
+       $old_id = 0;
        while ($x=$res->fetch_assoc()) {
-         if ($x['visibility']==0) {
-           $visibility='Ukryte';
-         }else {
-           $visibility='Widoczne';
-         }
-         echo <<< tomek
-           <tr>
-           <td>$x[product_id]</td>
-           <td>$x[name]</td>
-           <td>$x[amount]</td>
-           <td>$x[price]</td>
-           <td><img src="../product_images/$x[image_name]" alt="zdjecie produktu"></td>
-           <td>$visibility</td>
+         // ogarnianie statusu - zrobić
+        $product_zusammen_price = $x['price']*$x['amount'];
 
-           <td><a href=../actions/delete_product.php?id=$x[product_id]>Usuń</a></td>
-           <td><a href=../actions/product_edition_page.php?id=$x[product_id]>Edytuj</a></td>
+        if ($old_id != $x['order_id']) {
+          $sql = "SELECT count(order_id) as rowspan FROM  ordered_products where order_id = $x[order_id]";
+          $in_while_res = $con->query($sql);
+          $result_table = $in_while_res->fetch_assoc();
 
-           </tr>
-       tomek;
-       }
-       echo "</table></div>";
+          $old_id = $x['order_id'];
+
+
+            echo <<< tomek
+            <tr>
+            <td rowspan=$result_table[rowspan]>$x[order_id]</td>
+            <td rowspan=$result_table[rowspan]>$x[user_name] $x[surname]</td>
+            <td rowspan=$result_table[rowspan]>$x[user_id]</td>
+            <td rowspan=$result_table[rowspan]>$x[date_time]</td>
+            <td>$x[name]</td>
+            <td>$x[amount]</td>
+            <td>$x[price] zł</td>
+            <td>$product_zusammen_price zł</td>
+            <td rowspan=$result_table[rowspan]>cena w sumie</td>
+            <td rowspan=$result_table[rowspan]>$x[home_address]</td>
+            <td rowspan=$result_table[rowspan]>$x[status]</td>
+
+
+            </tr>
+            tomek;
+        }else{
+          echo <<< tomek
+          <tr>
+
+            <td>$x[name]</td>
+            <td>$x[amount]</td>
+            <td>$x[price] zł</td>
+            <td>$product_zusammen_price zł</td>
+
+          </tr>
+          tomek;
+        }
+      }
+
+         echo "</table></div>";
 
       $con->close();
       ?>
      </section>
-
 
    </body>
  </html>

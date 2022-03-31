@@ -36,7 +36,6 @@ session_start();
             $sql = "SELECT utp.* FROM users u join user_types_permissions utp on utp.user_type = u.user_type where email_address like '$_SESSION[email_address_logged]';";
             $res=$con->query($sql);
             $x=$res->fetch_assoc();
-            // print_r($x);
 
             if ($x['editing_users']) {
               echo "<a href='./user_management_page.php'>Zarządzanie użytkownikami</a>";
@@ -46,6 +45,9 @@ session_start();
             }
             if ($x['managing_orders']) {
               echo "<a href='./order_management_page.php'>Zarządzanie zamówieniami</a>";
+            }
+            if ($x['displaying_orders']) {
+              echo "<a href='./order_display_page.php'>Moje zamówienia</a>";
             }
 
 
