@@ -71,7 +71,18 @@ img{
   justify-content: space-between;
   flex-direction: row;
   min-height: 100px;
-  width: 40%
+  width: 40%;
+}
+
+.pagination{
+  margin: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  min-height: 100px;
+  width: 40%;
 }
 
 .product_description{

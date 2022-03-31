@@ -121,11 +121,11 @@ session_start();
           echo <<< tomek
             </div>
             <div class="summary">
-              <h2>podsumowanie zakupów</h2>
+              <h2>Podsumowanie zakupów</h2>
               <span>
-                cena: $cart_price zł
+                cena za całość: $cart_price zł
               </span>
-              <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
+              <a href="../actions/confirm_order.php">Potwierdzam zamówienie</a>
             </div>
 
           tomek;
