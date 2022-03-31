@@ -144,7 +144,7 @@ session_start();
 
       $con->close();
       ?>
-
+      <footer>Strona wykoana przez Antoniego Pietrzaka</footer>
      </section>
    </body>
  </html>

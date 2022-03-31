@@ -90,39 +90,48 @@ session_start();
                     $min_amount = -$value;
                     echo <<< tomek
                       <div class='product_in_cart'>
-                        <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br><br>
-                        <p>Nazwa produktu: $x[name]</p><br>
-                        <p>Ilośc na magazynie: $amount_in_magazine</p><br>
-                        <p>Ilośc w koszyku:$value</p><br>
+                        <div class="img">
+                          <img src="../product_images/$x[image_name]" alt="zdjecie produktu">
+                        </div>
 
-                        <form action="../actions/add_to_cart.php" method="get">
+                        <div class="product_in_cart_description">
+                          <span>Nazwa produktu: $x[name]</span>
+                          <span>Ilośc na magazynie: $amount_in_magazine</span>
+                          <span>Cena: $x[price]</span>
+                          <span>Ilośc w koszyku: $value</span>
+                          <span>Suma: $price_of_items zł</span>
+                        </div>
 
+                        <div class="product_in_cart_actions">
+                          <div>
+                            <form action="../actions/add_to_cart.php" method="get">
+                              <input type="hidden" name="src" value="shopping_cart_page">
+                              <input type="hidden" name="product_id" value="$key">
+                              <input type="submit" value="Zmień ilość w koszyku"><br><br>
+                              <input type="number" name="amount" value='1' min='$min_amount' step='1' max='$max_amount'>
+                            </form>
+                          </div>
+                        </div>
 
-                          <input type="hidden" name="src" value="shopping_cart_page">
-                          <input type="hidden" name="product_id" value="$key">
-                          <input type="number" name="amount" value='1' min='$min_amount' step='1' max='$max_amount'>
-                          <input type="submit" value="Zmień ilość w koszyku">
-                        </form>
-
-                        <p>Cena: $x[price]</p><br>
-                        <p>Suma: $price_of_items zł</p>
 
                       </div><br>
                     tomek;
                 }
           }
           echo <<< tomek
-            <div class="product">
-            podsumowanie zakupów: cena: $cart_price zł
-            <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
             </div>
+            <div class="summary">
+              <h2>podsumowanie zakupów</h2>
+              <span>
+                cena: $cart_price zł
+              </span>
+              <a href="../actions/confirm_order.php">Potwierdź zamówienie</a>
             </div>
 
           tomek;
 
         }
       ?>
-
     </section>
   <footer>Strona wykoana przez Antonieg Pietrzaka</footer>
   </body>

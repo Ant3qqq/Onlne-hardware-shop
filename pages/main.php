@@ -93,14 +93,11 @@ session_start();
           $sql = "SELECT product_id, name, amount, price, image_name, visibility FROM `products`;";
           $res=$con->query($sql);
           $con->close();
-          echo "<div class=flex>";
+          echo "<div class=shop>";
 
 
 
           while ($x=$res->fetch_assoc()) {
-            if (empty($x['image_name'])) {
-              $x['image_name']='default.png';
-            }
 
             if (isset($_SESSION['cart_content'][$x['product_id']])) {
               $x['amount'] = $x['amount'] - $_SESSION['cart_content'][$x['product_id']];
@@ -108,16 +105,22 @@ session_start();
             if ($x['amount']>0 and $x['visibility']==1) {
               echo <<< tomek
               <div class="product">
+                <div class="img">
+                  <img src="../product_images/$x[image_name]" alt="zdjecie produktu">
+                </div>
+                <div class="product_description">
+                  <span>Nazwa produktu: $x[name]</span><br>
+                  <span>Ilośc na magazynie: $x[amount] szt</span><br>
+                  <span>Cena: $x[price] zł</span>
+                </div>
+                <div class="product_actions">
                   <form action="../actions/add_to_cart.php" method="get">
-                    <img src="../product_images/$x[image_name]" alt="zdjecie produktu"><br>
-                    <p>Nazwa produktu: $x[name]</p>
-                    <p>Ilośc na magazynie: $x[amount] szt</p>
-                    <p>Cena: $x[price] zł</p>
-                    <input type="submit" value="Dodaj do koszyka">
-                    <input type="hidden" name="product_id" value="$x[product_id]">
-                    <input type="hidden" name="src" value="main">
-                    <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]>
+                  <input type="submit" value="Dodaj do koszyka"><br><br>
+                  <input type="hidden" name="product_id" value="$x[product_id]">
+                  <input type="hidden" name="src" value="main">
+                  <input type="number" name="amount" value='1' min='1' step='1' max=$x[amount]> szt
                   </form>
+                </div>
               </div>
             tomek;
             }
@@ -127,8 +130,10 @@ session_start();
           echo "</div>";
         }
       ?>
+<div class="">
 
+</div>
     </section>
-  <footer>Strona wykoana przez Antonieg Pietrzaka</footer>
+  <footer>Strona wykoana przez Antoniego Pietrzaka</footer>
   </body>
 </html>

@@ -72,6 +72,6 @@ session_start();
       ?>
 
     </section>
-  <footer>Strona wykoana przez Antonieg Pietrzaka</footer>
+  <footer>Strona wykoana przez Antoniego Pietrzaka</footer>
   </body>
 </html>

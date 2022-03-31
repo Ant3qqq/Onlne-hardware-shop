@@ -56,20 +56,20 @@ session_start();
         ?>
      </nav>
 
-     <section>
+     <section class="orders">
        <?php
        $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
        $sql = "SELECT o.order_id, u.name as user_name, surname, u.user_id, date_time, products.name, op.amount, op.price as deal_day_product_price,products.price as current_price, home_address ,status FROM `orders` o join ordered_products op on op.order_id = o.order_id join users u on u.user_id = o.user_id join products on op.product_id = products.product_id order by o.order_id";
        $res=$con->query($sql);
 
        if (!empty($_GET['information'])) {
-         echo "<div><p>$_GET[information]</p><br>";
+         echo "<span class='title'>Zarządzanie zamówieniami</span><div><p>$_GET[information]</p><br>";
        }else {
-         echo "<div>";
+         echo "<span class='title'>Zarządzanie zamówieniami</span><div>";
        }
 
        echo <<< tomek
-       <h1>Zarządzanie zamówieniami</h1>
+
        <table>
          <tr>
            <th>ID <br> zamówienia</th>
@@ -144,6 +144,6 @@ session_start();
       ?>
      </section>
 
-
+     <footer>Strona wykoana przez Antoniego Pietrzaka</footer>
    </body>
  </html>

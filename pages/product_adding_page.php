@@ -141,6 +141,6 @@ session_start();
       ?>
      </section>
 
-
+     <footer>Strona wykoana przez Antoniego Pietrzaka</footer>
    </body>
  </html>
