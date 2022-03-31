@@ -83,7 +83,7 @@ session_start();
            <th>W sumie <br> za produkt</th>
            <th>Cena <br> zamówienia</th>
            <th>Adres <br> dostawy</th>
-           <th>Status <br> zamówienia</th>
+
          </tr>
        tomek;
 
@@ -115,14 +115,15 @@ session_start();
             <td>$product_zusammen_price zł</td>
             <td rowspan=$result_table[rowspan]>policzyć w bazie</td>
             <td rowspan=$result_table[rowspan]>$x[home_address]</td>
-            <td rowspan=$result_table[rowspan]>$x[status]</td>
-            <td rowspan=$result_table[rowspan]><a href=''>Następny <br> krok</a></td>
-            <td rowspan=$result_table[rowspan]><a href=''>Ręcznie ustaw <br> status</a></td>
+
 
 
 
             </tr>
             tomek;
+            // <td rowspan=$result_table[rowspan]>$x[status]</td>
+            // <td rowspan=$result_table[rowspan]><a href=''>Następny <br> krok</a></td>
+            // <td rowspan=$result_table[rowspan]><a href=''>Ręcznie ustaw <br> status</a></td>
         }else{
           echo <<< tomek
           <tr>

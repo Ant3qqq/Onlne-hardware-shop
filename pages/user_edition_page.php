@@ -63,10 +63,11 @@ session_start();
        $res=$con->query($sql);
 
        if (!empty($_GET['information'])) {
-         echo "<div><p>$_GET[information]</p><br>";
+         echo "<span class='title'>Zarządzanie użytkownikami</span><div><p>$_GET[information]</p><br>";
        }else {
-         echo "<div>";
+         echo "<span class='title'>Zarządzanie użytkownikami</span><div>";
        }
+
 
        echo <<< tomek
        <table>

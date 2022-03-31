@@ -60,7 +60,7 @@ session_start();
     <section>
       <?php
         if (!empty($_GET['information'])) {
-          echo "<br>$_GET[information]<br>";
+          echo "<p>$_GET[information]</p><br>";
         }
 
         if (isset($_GET['action'])  and $_GET['action']=='zarejestruj') {
@@ -184,7 +184,7 @@ session_start();
                 // if we're on current page...
                 if ($x == $currentpage) {
                    // 'highlight' it but don't make a link
-                   echo " [<b>$x</b>] ";
+                   echo " <b>$x</b> ";
                 // if not current page...
                 } else {
                    // make it a link

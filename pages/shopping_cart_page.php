@@ -56,15 +56,15 @@ session_start();
 
     <section>
       <?php
-        if (!empty($_GET['information'])) {
-          echo "<br>$_GET[information]<br>";
-        }
+      if (!empty($_GET['information'])) {
+        echo "<div class='information'>$_GET[information]</div>";
+      }
 
 
         if (empty($_SESSION["email_address_logged"])) {
-         echo "Zalguj się aby móc skorzystać z koszyka";
+         echo "<div class='information'>Zalguj się aby móc skorzystać z koszyka</div>";
         }elseif(empty($_SESSION["cart_content"])){
-          echo "Pusyt koszyk -&nbsp <a href='./main.php'> przejdź do sklepu </a>&nbsp i dodaj produkty";
+          echo "<div class='information'>Pusyt koszyk -&nbsp <a href='./main.php'> przejdź do sklepu </a>&nbsp i dodaj produkty</div>";
         }
         else{
 

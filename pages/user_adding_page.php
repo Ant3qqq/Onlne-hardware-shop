@@ -63,9 +63,9 @@ session_start();
 
 
        if (!empty($_GET['information'])) {
-         echo "<div><p>$_GET[information]</p><br>";
+         echo "<span class='title'>Zarządzanie użytkownikami</span><div><p>$_GET[information]</p><br>";
        }else {
-         echo "<div>";
+         echo "<span class='title'>Zarządzanie użytkownikami</span><div>";
        }
 
        echo <<< tomek
