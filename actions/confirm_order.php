@@ -9,10 +9,6 @@ session_start();
 // 4 - rozpoczęto procedurę zwrotu
 // 5 - zwrócono
 
-
-print_r($_SESSION['cart_content']);
-print_r($_SESSION['user_id']);
-
 $con = new mysqli('localhost', 'root','','online_shop_anotni_pietrzak');
 
 // wrzucanie danych do tabeli orders
