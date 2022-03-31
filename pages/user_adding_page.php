@@ -36,7 +36,9 @@ session_start();
           if ($x['editing_products']) {
             echo "<a href='./products_management_page.php'>Zarządzanie produktami</a>";
           }
-
+          if ($x['managing_orders']) {
+            echo "<a href='./order_management_page.php'>Zarządzanie zamówieniami</a>";
+          }
 
          }else {
            echo <<< tomek

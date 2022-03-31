@@ -44,6 +44,9 @@ session_start();
             if ($x['editing_products']) {
               echo "<a href='./products_management_page.php'>Zarządzanie produktami</a>";
             }
+            if ($x['managing_orders']) {
+              echo "<a href='./order_management_page.php'>Zarządzanie zamówieniami</a>";
+            }
 
 
           }else {
@@ -96,17 +99,15 @@ session_start();
           $con->close();
           echo "<div class=flex>";
 
-          if (!empty($_SESSION['cart_content'])) {
-            $cart_session=$_SESSION['cart_content'];
-          }
+
 
           while ($x=$res->fetch_assoc()) {
             if (empty($x['image_name'])) {
               $x['image_name']='default.png';
             }
 
-            if (isset($cart_session[$x['product_id']])) {
-              $x['amount'] = $x['amount'] - $cart_session[$x['product_id']];
+            if (isset($_SESSION['cart_content'][$x['product_id']])) {
+              $x['amount'] = $x['amount'] - $_SESSION['cart_content'][$x['product_id']];
             }
             if ($x['amount']>0 and $x['visibility']==1) {
               echo <<< tomek
